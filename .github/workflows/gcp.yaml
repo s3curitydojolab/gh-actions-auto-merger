@@ -1,0 +1,24 @@
+name: List services in GCP
+on:
+  push
+
+permissions:
+  id-token: write
+
+jobs:
+  Get_OIDC_ID_token:
+    runs-on: ubuntu-latest
+    steps:
+    - id: 'auth'
+      name: 'Authenticate to GCP'
+      uses: 'google-github-actions/auth@v1'
+      with:
+          create_credentials_file: 'true'
+          id_token_include_email: 'true'
+          workload_identity_provider: ${{ secrets.WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.SERVICE_ACCOUNT_EMAIL }}
+    - id: 'gcloud'
+      name: 'gcloud'
+      run: |-
+        gcloud iam workload-identity-pools list --location="global" --project "${{ secrets.GCLOUD_PROJECT_ID }}"
+        

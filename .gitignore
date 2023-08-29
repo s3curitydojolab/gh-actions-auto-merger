@@ -1,0 +1,8 @@
+Pulumi.yaml
+Pulumi.*
+Pulumi.dev.yaml
+Pulumi.*.yaml
+/bin/
+/node_modules/
+*.txt
+*.json
